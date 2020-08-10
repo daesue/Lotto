@@ -9,11 +9,25 @@ import pathlib
 import tkinter as tk
 from tkinter import ttk
 
+conf_fileName = 'set.conf'
+conf_dir = 'conf/'
+conf_file = conf_dir + conf_fileName
+
+
 class LottoDatabase:
-	def __init__(self, selectDatabase):
-		print("Lotto Database : ", selectDatabase)
+
+	def __init__(self):
+		print("Lotto Database : ")
+		readFile = open(conf_file, mode='rt', encoding='utf-8')
+		self.readDB = readFile.read()
+		print("Read file : ", self.readDB)
+		readFile.seek(0)
+		readFile.close()
 
 	def view(self):
-		print("Lotto Database view")
+		pass
+
+	def getDBValue(self):
+		return self.readDB
 
 

@@ -42,9 +42,6 @@ class Configuration :
 						readFile.close()
 						if tmpStr == "" :
 							self.initConfWrite()
-							#baseFile = open(conf_file, mode='wt', encoding='utf-8')
-							#baseFile.write('SQLite3')
-							#baseFile.close()
 						else :
 							# file 안 내용 확인...
 							pass
@@ -61,9 +58,6 @@ class Configuration :
 						if os.path.isfile(conf_file):
 							print("input base text : SQLite3")
 							self.initConfWrite()
-							#baseFile = open(conf_file, mode='wt', encoding='utf-8')
-							#baseFile.write('SQLite3')
-							#baseFile.close()
 
 							readFile = open(conf_file, mode='rt', encoding='utf-8')
 							print("Read file : ", readFile.read())
@@ -91,9 +85,6 @@ class Configuration :
 					readFile.close()
 					if tmpStr == "" :
 						self.initConfWrite()
-						#baseFile = open(conf_file, mode='wt', encoding='utf-8')
-						#baseFile.write('SQLite3')
-						#baseFile.close()
 					else :
 						pass
 
@@ -109,9 +100,6 @@ class Configuration :
 					if os.path.isfile(conf_file):
 						print("input base text : SQLite3")
 						self.initConfWrite()
-						#baseFile = open(conf_file, mode='wt', encoding='utf-8')
-						#baseFile.write('SQLite3')
-						#baseFile.close()
 
 						readFile = open(conf_file, mode='rt', encoding='utf-8')
 						print("Read file : ", readFile.read())
@@ -132,6 +120,11 @@ class Configuration :
 		pass
 
 	def initConfWrite(self):
+		initStr = 'SQLite3'
 		baseFile = open(conf_file, mode='wt', encoding='utf-8')
-		baseFile.write('SQLite3')
+		baseFile.write(initStr)
 		baseFile.close()
+
+
+	def checkConfDir(self):
+		pass

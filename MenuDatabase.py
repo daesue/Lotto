@@ -13,11 +13,16 @@ from tkinter import messagebox as msg
 
 import Lotto
 
+conf_fileName = 'set.conf'
+conf_dir = 'conf/'
+conf_file = conf_dir + conf_fileName
+
+
 class MenuDatabase:
-	def __init__(self, menu, win):
+	def __init__(self, menu, win, database):
 		self.win = win
 		self.radVarSelected = tk.IntVar(self.win)
-		self.radVarSelected.set(2)
+		self.radVarSelected.set(database)
 
 		self.database = tk.Menu(menu, tearoff = 0)
 		self.SelectedDB = tk.Menu(menu, tearoff=0)
@@ -32,15 +37,16 @@ class MenuDatabase:
 
 		menu.add_cascade(label="Database", menu=self.database)
 
-
 	def selectDatabase(self):
 		dbVar = self.radVarSelected.get()
+		baseFile = open(conf_file, mode='wt', encoding='utf-8')
 		if dbVar == 1:
-			print("selected MySQL")
+			baseFile.write('MySQL')
 		elif dbVar == 2:
-			print("selected SQLite3")
+			baseFile.write('SQLite3')
 		else : print("Error : Wrong?" )
 
+		baseFile.close()
 
 #		self.radioDBVar = tk.IntVar(win)
 #		self.radioDBVar.set(2)

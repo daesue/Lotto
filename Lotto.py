@@ -27,16 +27,23 @@ class Cnf :
 	def __init__(self):
 		pass
 
-
 class Version :
 	ver = "0.1"
 	ver_cui = "0.1.4.1"
-	ver_gui = "0.1.4.5.1"
+	ver_gui = "0.1.4.5.2"
 
 	def __init__(self):
 		pass
 
 	def getVersion(self, mode):
+		ver = {
+		'cui':self.ver_cui,
+		'gui':self.ver_gui,
+		'release':self.ver
+		}
+		return ver.get(mode)
+
+	def getVersion2(self, mode):
 		if mode == "cui" :
 			return self.ver_cui
 		elif mode == "gui":
@@ -48,6 +55,14 @@ class Version :
 			return -1
 
 	def infoVersion(self, mode):
+		ver = {
+		'cui':"Lotto CUI Version : "+self.ver_cui,
+		'gui':"Lotto GUI Version : "+self.ver_gui,
+		'release':"Lotto release Version : "+self.ver
+		}
+		return print(ver.get(mode))
+
+	def infoVersion2(self, mode):
 		if mode == "cui" :
 			print("Lotto CUI Version : ", ver_cui)
 		elif mode == "gui":
@@ -66,8 +81,6 @@ class Lotto(Version) :
 	def __init__(self):
 		conf = Conf.Configuration()
 		Version.__init__(self)
-#		Configuration.__init__(self)
-
 
 	def randomOneNumber(self):
 		extractNum = random.randrange(1, 46, 1)
@@ -125,9 +138,15 @@ class Lotto_GUI(Lotto) :
 	def __init__(self):
 		Lotto.__init__(self)
 
-		db = database.LottoDatabase(2)
+		self.db = database.LottoDatabase()
+		getTmp = self.db.getDBValue()
+		if getTmp == 'SQLite3' :
+			self.getDatabase = 2
+		elif getTmp == 'MySQL':
+			self.getDatabase = 1
 
 		print("Lotto GUI mode : ", self.getVersion("gui") )
+		self.infoVersion('gui')
 
 	def run(self):
 		lotto = []
@@ -166,7 +185,7 @@ class Lotto_GUI(Lotto) :
 		win.config(menu = MenuTitle)
 
 		menu_file = mFile.MenuFile(MenuTitle, win)
-		menu_database = mDatabase.MenuDatabase(MenuTitle, win)
+		menu_database = mDatabase.MenuDatabase(MenuTitle, win, self.getDatabase)
 		menu_setting = mSetting.MenuSetting(MenuTitle, win)
 		menu_help = mHelp.MenuHelp(MenuTitle, win)
 
